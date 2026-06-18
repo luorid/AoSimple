@@ -11,3 +11,5 @@ ModuleLoader.ChangeSettings({
 })
 -- pass any containers for your custom services to the Start() function
 ModuleLoader.Start(script, ReplicatedStorage.src.Client, ReplicatedStorage.src.Client.Services)
+
+require(ReplicatedStorage.src.Shared.chrono).Start()

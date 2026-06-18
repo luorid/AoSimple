@@ -5,6 +5,9 @@ local TweenService = game:GetService("TweenService")
 local Debris = game:GetService("Debris")
 
 local player = require(replicatedStorage.src.Client.Services.PlayerService)
+local soundReplication = require(game.ReplicatedStorage.src.Client.SoundReplication)
+local playDashSound = soundReplication.handleSoundEvent("DashSoundEvent", script.DashSound)
+local playRollSound = soundReplication.handleSoundEvent("RollSoundEvent", script.RollSound)
 
 -- Animation assets
 local backDash = script.BackDash
@@ -144,7 +147,7 @@ local function performDash(keyCode)
 				conn:Disconnect()
 				if rollAnim and player.Humanoid().MoveDirection.Magnitude > 0 then
 					rollAnim:Play()
-					script.RollSound:Play()
+					playRollSound(player.Player())
 				end
 			end
 		end)
@@ -168,7 +171,7 @@ function DashService.OnDashInput(keyCode)
 		lastKeyPressTime[keyCode] = nil
 		if not isGrounded() then hasAirDashed = true end
 		performDash(keyCode)
-		script.DashSound:Play()
+		playDashSound(player.Player())
 	else
 		lastKeyPressTime[keyCode] = now
 	end

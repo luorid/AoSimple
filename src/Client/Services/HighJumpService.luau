@@ -1,6 +1,8 @@
 local HighJump = {}
 
 local player = require(game.ReplicatedStorage.src.Client.Services.PlayerService)
+local soundReplication = require(game.ReplicatedStorage.src.Client.SoundReplication)
+local playJumpSound = soundReplication.handleSoundEvent("HighJumpSoundEvent", script.JumpSound)
 
 local FORCE = 100
 local MAX_CHARGE_TIME = 2
@@ -83,6 +85,15 @@ function HighJump.StartCharge()
 			task.wait(0.1)
 		end
 	end)
+	task.spawn(function()
+		while charging and sessionId == mySession do
+			if hum.FloorMaterial == Enum.Material.Air then
+				HighJump.Release()
+				return
+			end
+			task.wait()
+		end
+	end)
 
 	HighJump._state = {
 		char = char,
@@ -121,9 +132,8 @@ function HighJump.Release()
 	local jumpSound = script.JumpSound:Clone()
 	jumpSound.Parent = player.HRP()
 	jumpSound:Play()
-	jumpSound.Ended:Connect(function()
-		jumpSound:Destroy()
-	end)
+	jumpSound.Ended:Connect(function() jumpSound:Destroy() end)
+	playJumpSound(player.Player())
 
 	executeJump(char, forceFactor)
 
