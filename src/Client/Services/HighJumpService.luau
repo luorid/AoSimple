@@ -18,6 +18,7 @@ local function loadAnimation()
 	local hum = player.Humanoid()
 	if not hum then return end
 	animTrack = hum:LoadAnimation(highJumpAnim)
+	animTrack.Priority = Enum.AnimationPriority.Action2
 end
 
 local function executeJump(char, forceFactor)

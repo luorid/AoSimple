@@ -20,6 +20,7 @@ local function stopRunning()
 
 	isRunning = false
 	humanoid.WalkSpeed = walkSpeed
+	player.Player():SetAttribute("IsRunning", false)
 
 	if runConnection then
 		runConnection:Disconnect()
@@ -77,6 +78,7 @@ local function startRunning()
 
 	isRunning = true
 	humanoid.WalkSpeed = runSpeed
+	player.Player():SetAttribute("IsRunning", true)
 
 	trackMovementState()
 end
