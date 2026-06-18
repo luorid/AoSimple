@@ -33,11 +33,11 @@ sprintAction.Pressed:Connect(function()
 end)
 
 highJumpAction.Pressed:Connect(function()
-	highJump.StartCharge()
+	highJumpService.StartCharge()
 end)
 
 highJumpAction.Released:Connect(function()
-	highJump.Release()
+	highJumpService.Release()
 end)
 
 
