@@ -1,8 +1,8 @@
-local ReplicateSound = {}
+local SoundReplicationServer = {}
 local quickNet = require(game.ReplicatedStorage.src.Shared.QuickNet)
 local Players = game:GetService("Players")
 
-function ReplicateSound.Init()
+function SoundReplicationServer.Init()
 	
 	local events = {
 		quickNet:register("HighJumpSoundEvent", quickNet.Data.Player),
@@ -22,4 +22,4 @@ function ReplicateSound.Init()
 	
 end
 
-return ReplicateSound
+return SoundReplicationServer

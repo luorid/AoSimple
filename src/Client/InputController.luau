@@ -8,6 +8,7 @@ local highJumpService = require(client.Services.HighJumpService)
 local dashService = require(client.Services.DashService)
 
 local blastClient = require(replicatedStorage.src.Systems.Blast.BlastClient)
+local toolStateController = require(replicatedStorage.src.Systems.ToolSystem.ToolStateController)
 
 local sprintAction = inputService.GetAction("idle", "ToggleSprint")
 sprintAction.KeyboardBinding.KeyCode = Enum.KeyCode.LeftControl
@@ -33,17 +34,10 @@ for actionName, keyCode in keyMap do
 	end)
 end
 
-sprintAction.Pressed:Connect(function()
-	sprintService.Toggle()
-end)
+sprintAction.Pressed:Connect(sprintService.Toggle)
 
-highJumpAction.Pressed:Connect(function()
-	highJumpService.StartCharge()
-end)
-
-highJumpAction.Released:Connect(function()
-	highJumpService.Release()
-end)
+highJumpAction.Pressed:Connect(highJumpService.StartCharge)
+highJumpAction.Released:Connect(highJumpService.Release)
 
 blastAction.Pressed:Connect(function()
 	highJumpService.Cancel()
@@ -56,6 +50,10 @@ blastAction.Released:Connect(function()
 	blastClient.OnRelease()
 end)
 
+toolStateController.OnChanged = function(active)
+	blastAction.Enabled = active
+end
 
+blastAction.Enabled = toolStateController.IsToolActive
 
 return InputController

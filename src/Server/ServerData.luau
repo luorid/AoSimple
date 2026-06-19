@@ -9,7 +9,6 @@ function ServerData.Init()
 	function dataService:onPlayerInit(player, data)
 		data.timesJoined += 1
 		data.sessionStart = os.time()
-		print("Player data loaded:", data)
 	end
 	
 	dataService:addPlayerRemovingCallback(function(player, data)

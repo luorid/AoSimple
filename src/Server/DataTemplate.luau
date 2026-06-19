@@ -4,6 +4,7 @@ local DataTemplate = {
 	inventory = {},
 	timesJoined = 0,
 	timePlayed = 0,
+	magic = "Fire Magic"
 }
 
 return DataTemplate
