@@ -159,4 +159,8 @@ function HighJump.Release()
 	HighJump._state = nil
 end
 
+function HighJump.Init()
+	animPlayer.load(highJumpAnim)
+end
+
 return HighJump

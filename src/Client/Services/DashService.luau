@@ -1,4 +1,5 @@
 local DashService = {}
+
 local replicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
@@ -6,19 +7,10 @@ local Debris = game:GetService("Debris")
 
 local player = require(replicatedStorage.src.Client.Services.PlayerService)
 local states = require(replicatedStorage.src.Shared.States)
+local animPlayer = require(replicatedStorage.src.Client.AnimPlayer)
 local soundReplication = require(game.ReplicatedStorage.src.Client.SoundReplication)
 local playDashSound = soundReplication.handleSoundEvent("DashSoundEvent", script.DashSound)
 local playRollSound = soundReplication.handleSoundEvent("RollSoundEvent", script.RollSound)
-
--- Animation assets
-local backDash = script.BackDash
-local backRoll = script.BackRoll
-local frontDash = script.FrontDash
-local frontRoll = script.FrontRoll
-local leftDash = script.LeftDash
-local leftRoll = script.LeftRoll
-local rightDash = script.RightDash
-local rightRoll = script.RightRoll
 
 -- Constants
 local DASH_COOLDOWN = 0.5
@@ -35,27 +27,16 @@ local lastKeyPressTime = {}
 local animations = nil
 local hasAirDashed = false
 
--- Private: load animations onto animator
 local function loadAnimations()
-	local humanoid = player.Humanoid()
-	local animator = humanoid:FindFirstChildOfClass("Animator") or Instance.new("Animator", humanoid)
-
-	local function load(asset, priority)
-		local track = animator:LoadAnimation(asset)
-		track.Priority = priority or Enum.AnimationPriority.Action2
-		return track
-	end
-
 	animations = {
-		FrontDash = load(frontDash),
-		BackDash  = load(backDash),
-		LeftDash  = load(leftDash),
-		RightDash = load(rightDash),
-		
-		FrontRoll = load(frontRoll),
-		BackRoll  = load(backRoll),
-		LeftRoll  = load(leftRoll),
-		RightRoll = load(rightRoll)
+		FrontDash = animPlayer.load(script.FrontDash),
+		BackDash  = animPlayer.load(script.BackDash),
+		LeftDash  = animPlayer.load(script.LeftDash),
+		RightDash = animPlayer.load(script.RightDash),
+		FrontRoll = animPlayer.load(script.FrontRoll),
+		BackRoll  = animPlayer.load(script.BackRoll),
+		LeftRoll  = animPlayer.load(script.LeftRoll),
+		RightRoll = animPlayer.load(script.RightRoll)
 	}
 end
 

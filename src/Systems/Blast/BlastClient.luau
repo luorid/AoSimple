@@ -60,7 +60,7 @@ function BlastClient.OnRelease()
 end
 
 function BlastClient.Init()
-	
+	animPlayer.load(script.BlastAnimation)
 end
 
 
