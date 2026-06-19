@@ -108,10 +108,6 @@ local function loadRunAnimation()
 	runTrack.Looped = true
 end
 
-function SprintService.Start()
-	if isRunning then return end
-	startRunning()
-end
 
 function SprintService.Stop()
 	if not isRunning then return end
@@ -129,6 +125,7 @@ end
 function SprintService.Init()
 	if player.Character() then
 		loadRunAnimation()
+		stopRunning()
 	end
 
 	player.CharacterAdded():Connect(function()
