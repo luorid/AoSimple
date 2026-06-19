@@ -5,6 +5,7 @@ local TweenService = game:GetService("TweenService")
 local Debris = game:GetService("Debris")
 
 local player = require(replicatedStorage.src.Client.Services.PlayerService)
+local states = require(replicatedStorage.src.Shared.States)
 local soundReplication = require(game.ReplicatedStorage.src.Client.SoundReplication)
 local playDashSound = soundReplication.handleSoundEvent("DashSoundEvent", script.DashSound)
 local playRollSound = soundReplication.handleSoundEvent("RollSoundEvent", script.RollSound)
@@ -121,6 +122,7 @@ local function performDash(keyCode)
 	local faceDirection = Vector3.new(camLook.X, 0, camLook.Z).Unit
 
 	isDashing = true
+	states.SetState(player.Player(), "IsDashing", true)
 	task.spawn(function()
 		local startTime = time()
 
@@ -138,6 +140,7 @@ local function performDash(keyCode)
 		end
 
 		isDashing = false
+		states.SetState(player.Player(), "IsDashing", false)
 	end)
 
 	if wasAirborne and player.Player():GetAttribute("IsRunning") then
@@ -161,7 +164,7 @@ end
 
 function DashService.OnDashInput(keyCode)
 	if onCooldown or isDashing then return end
-	if player.HRP() and player.HRP().Anchored then return end
+	if not player.HRP() or player.HRP().Anchored or not player.Humanoid() then return end
 	if not isGrounded() and hasAirDashed then return end
 
 	local now = tick()

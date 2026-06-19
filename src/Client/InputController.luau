@@ -46,10 +46,13 @@ highJumpAction.Released:Connect(function()
 end)
 
 blastAction.Pressed:Connect(function()
+	highJumpService.Cancel()
+	highJumpAction.Enabled = false
 	blastClient.OnPress()
 end)
 
 blastAction.Released:Connect(function()
+	highJumpAction.Enabled = true
 	blastClient.OnRelease()
 end)
 

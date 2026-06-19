@@ -3,6 +3,7 @@ local RunService = game:GetService("RunService")
 
 local SprintService = {}
 local player = require(script.Parent.PlayerService)
+local states = require(game.ReplicatedStorage.src.Shared.States)
 
 local walkSpeed = 8
 local runSpeed = 30
@@ -20,7 +21,7 @@ local function stopRunning()
 
 	isRunning = false
 	humanoid.WalkSpeed = walkSpeed
-	player.Player():SetAttribute("IsRunning", false)
+	states.SetState(player.Player(), "IsRunning", false)
 
 	if runConnection then
 		runConnection:Disconnect()
@@ -78,7 +79,7 @@ local function startRunning()
 
 	isRunning = true
 	humanoid.WalkSpeed = runSpeed
-	player.Player():SetAttribute("IsRunning", true)
+	states.SetState(player.Player(), "IsRunning", true)
 
 	trackMovementState()
 end
