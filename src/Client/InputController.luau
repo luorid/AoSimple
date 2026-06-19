@@ -7,11 +7,16 @@ local sprintService = require(client.Services.SprintService)
 local highJumpService = require(client.Services.HighJumpService)
 local dashService = require(client.Services.DashService)
 
+local blastClient = require(replicatedStorage.src.Systems.Blast.BlastClient)
+
 local sprintAction = inputService.GetAction("idle", "ToggleSprint")
 sprintAction.KeyboardBinding.KeyCode = Enum.KeyCode.LeftControl
 
 local highJumpAction = inputService.GetAction("idle", "HighJump")
 highJumpAction.KeyboardBinding.KeyCode = Enum.KeyCode.T
+
+local blastAction = inputService.GetAction("idle", "Blast")
+blastAction.KeyboardBinding.KeyCode = Enum.KeyCode.Q
 
 local keyMap = {
 	DashW = Enum.KeyCode.W,
@@ -38,6 +43,14 @@ end)
 
 highJumpAction.Released:Connect(function()
 	highJumpService.Release()
+end)
+
+blastAction.Pressed:Connect(function()
+	blastClient.OnPress()
+end)
+
+blastAction.Released:Connect(function()
+	blastClient.OnRelease()
 end)
 
 

@@ -7,7 +7,7 @@ local ModuleLoader = require(ReplicatedStorage.src.Shared.ModuleLoader)
 ModuleLoader.ChangeSettings({
 	FOLDER_SEARCH_DEPTH = 1,
 	YIELD_THRESHOLD = 10,
-	VERBOSE_LOADING = true,
+	VERBOSE_LOADING = false,
 	WAIT_FOR_SERVER = true,
 })
 -- pass any containers for your custom services to the Start() function

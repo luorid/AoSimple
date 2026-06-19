@@ -7,7 +7,7 @@ local player = require(clientServices.PlayerService)
 
 local meleeAction = inputService.GetAction("idle", "Melee")
 
-function CombatClient:Init()
+function CombatClient.Init()
 	
 	meleeAction.Pressed:Connect(function()
 		print("Melee input action was pressed!")
@@ -22,9 +22,12 @@ function CombatClient:Init()
 end
 
 
-function CombatClient:Start()
+function CombatClient.Start()
 	meleeAction.KeyboardBinding.KeyCode = Enum.KeyCode.MouseLeftButton
-	meleeAction.UIBinding.UIButton = player.PlayerGui():WaitForChild("CombatGui").TextButton
+	local combatGui = player.PlayerGui():FindFirstChild("CombatGui")
+	if combatGui then
+		meleeAction.UIBinding.UIButton = combatGui.TextButton
+	end
 end
 
 return CombatClient

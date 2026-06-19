@@ -2,11 +2,11 @@ local CombatServer = {}
 
 --// Services
 
-function CombatServer:Init()
+function CombatServer.Init()
 	
 end
 
-function CombatServer:Start()
+function CombatServer.Start()
 	
 end
 
