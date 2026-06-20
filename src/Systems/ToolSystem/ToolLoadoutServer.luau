@@ -7,10 +7,16 @@ local dataService = require(replicatedStorage.src.Shared.Services.DataService).s
 function ToolLoadoutServer:Init()
 	players.PlayerAdded:Connect(function(plr)
 		dataService:waitForData(plr)
-		local magic = dataService:get(plr, "magic")
-		local tool = Instance.new("Tool")
-		tool.Name = magic
-		tool.Parent = plr.Backpack
+		
+		local function giveMagic()
+			local magic = dataService:get(plr, "magic")
+			local tool = Instance.new("Tool")
+			tool.Name = magic
+			tool.Parent = plr.Backpack
+		end
+		
+		if plr.Character then giveMagic() end
+		plr.CharacterAdded:Connect(giveMagic)
 		
 	end)
 	

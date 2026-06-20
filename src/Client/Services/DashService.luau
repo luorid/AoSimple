@@ -124,7 +124,7 @@ local function performDash(keyCode)
 		states.SetState(player.Player(), "IsDashing", false)
 	end)
 
-	if wasAirborne and player.Player():GetAttribute("IsRunning") then
+	if wasAirborne and states.GetState(player.Player(), "IsRunning") then
 		local conn
 		conn = player.Humanoid().StateChanged:Connect(function(_, newState)
 			if newState == Enum.HumanoidStateType.Landed then
